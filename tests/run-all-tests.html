@@ -86,7 +86,7 @@
       assert('Keyboard maps capital J to Left Shift requirement', kb.getShiftRequirement('J').shiftKey === 'L_SHIFT');
       assert('Keyboard maps capital F to Right Shift requirement', kb.getShiftRequirement('F').shiftKey === 'R_SHIFT');
       kb.mount('keyboard-container');
-      assert('Keyboard mounts at least 4 rows', document.getElementById('keyboard-container').children.length >= 4);
+      assert('75% Keyboard mounts 6 rows (including Function row)', document.getElementById('keyboard-container').children.length === 6);
 
       // 4. Hands Guide Verification
       const hands = new HandsGuide();
@@ -99,11 +99,16 @@
       assert('L_INDEX active class cleared', !document.getElementById('finger-L_INDEX').classList.contains('active'));
 
       // 5. Curriculum Verification
-      assert('Curriculum contains 6 stages', Curriculum.stages.length >= 6);
+      assert('Curriculum contains 10 comprehensive stages', Curriculum.stages.length === 10);
       assert('Lesson 1.1 targets f and j', Curriculum.getLesson('1.1').targetKeys.includes('f'));
       assert('Passing threshold requires >= 90% accuracy', Curriculum.calculateStars(40, 89) === 0 && Curriculum.calculateStars(40, 91) >= 1);
       assert('Lesson 1.2 is locked until 1.1 is passed', !Curriculum.isLessonUnlocked('1.2', {}));
       assert('Lesson 1.2 is unlocked once 1.1 has >= 1 star', Curriculum.isLessonUnlocked('1.2', { '1.1': { stars: 1 } }));
+      assert('Stage 1 is not completed with empty progress', !Curriculum.isStageCompleted(1, {}));
+      assert('Stage 1 is completed when 1.1 to 1.6 have >= 1 star', Curriculum.isStageCompleted(1, {
+        '1.1': { stars: 3 }, '1.2': { stars: 2 }, '1.3': { stars: 1 },
+        '1.4': { stars: 4 }, '1.5': { stars: 3 }, '1.6': { stars: 5 }
+      }));
 
       // 6. Code Arena Verification
       assert('CodeArena contains 10 languages', CodeArena.languages.length === 10);
@@ -131,6 +136,8 @@
 
       engine.loadText("fj");
       assert('Engine loaded 2 characters', engine.charSpans.length === 2);
+      assert('Engine groups text into word container elements', document.getElementById('words-stream').querySelectorAll('.word').length > 0);
+      assert('Caret is mounted inside words stream container', document.getElementById('words-stream').contains(document.getElementById('typing-caret')));
       
       let finishResult = null;
       engine.onComplete = (res) => { finishResult = res; };

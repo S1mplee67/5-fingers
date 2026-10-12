@@ -92,10 +92,13 @@ class FiveFingersApp {
     // 3. Bind UI event listeners
     this.bindEvents();
 
-    // 4. Load initial lesson
+    // 4. Update Navigation Lock State for Code Arena
+    this.updateNavigationLockState();
+
+    // 5. Load initial lesson
     this.loadCurrentLesson();
 
-    // 5. Open onboarding tutorial on first launch
+    // 6. Open onboarding tutorial on first launch
     if (!this.profile.settings.hasSeenTutorial) {
       this.openWelcomeModal();
     }
@@ -352,6 +355,8 @@ class FiveFingersApp {
 
     // 2. Save progress if in Finger School
     if (this.currentMode === 'finger-school') {
+      const wasCodeUnlocked = this.isCodeArenaUnlocked();
+
       this.storage.saveProgress(this.activeLessonId, {
         wpm: result.wpm,
         accuracy: result.accuracy,
@@ -362,6 +367,16 @@ class FiveFingersApp {
       if (passed) {
         const nextId = Curriculum.getNextLessonId(this.activeLessonId);
         if (nextId) this.storage.unlockLesson(nextId);
+      }
+
+      this.profile = this.storage.loadProfile();
+      this.updateNavigationLockState();
+
+      if (!wasCodeUnlocked && this.isCodeArenaUnlocked()) {
+        const badgeEl = document.getElementById('results-status-badge');
+        if (badgeEl) {
+          badgeEl.innerHTML = 'PROGRESS UNLOCKED<br><span style="color: var(--accent-primary); font-size: 13px;">🎉 STAGE 1 COMPLETE — CODE ARENA UNLOCKED!</span>';
+        }
       }
     }
 
@@ -392,7 +407,38 @@ class FiveFingersApp {
     }
   }
 
+  isCodeArenaUnlocked() {
+    return Curriculum.isStageCompleted(1, this.profile.progress.completedLessons);
+  }
+
+  updateNavigationLockState() {
+    const codeBtn = document.querySelector('.nav-btn[data-mode="code-arena"]');
+    if (!codeBtn) return;
+
+    const unlocked = this.isCodeArenaUnlocked();
+    if (unlocked) {
+      codeBtn.classList.remove('nav-locked');
+      codeBtn.innerHTML = '<span>💻</span> Code Arena';
+      codeBtn.title = 'Code Arena: Practice 10 Real Programming Languages';
+    } else {
+      codeBtn.classList.add('nav-locked');
+      codeBtn.innerHTML = '<span>🔒</span> Code Arena <span class="lock-pill">Stage 1 Req</span>';
+      codeBtn.title = '🔒 Locked — Complete all 6 lessons of Stage 1 (Home Row Foundation) with ≥90% accuracy to unlock!';
+    }
+  }
+
   switchMode(mode) {
+    if (mode === 'code-arena' && !this.isCodeArenaUnlocked()) {
+      alert('🔒 Code Arena is locked!\n\nTo unlock the Code Arena, complete all 6 lessons of Stage 1 (Home Row Foundation) with at least 90% accuracy.');
+      this.currentMode = 'finger-school';
+      this.activeLessonId = '1.1';
+      document.querySelectorAll('.nav-modes .nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === 'finger-school');
+      });
+      this.loadCurrentLesson();
+      return;
+    }
+
     this.currentMode = mode;
 
     document.querySelectorAll('.nav-modes .nav-btn').forEach(btn => {

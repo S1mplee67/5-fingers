@@ -33,20 +33,29 @@ Unlike standard typing websites that require constant internet connections, logi
 
 ## 🚀 Key Features
 
-### 1. 🖐 Multi-Stage Finger School (TypingClub Methodology)
-- **Pedagogical Progression**: Starts slowly with single fingers and anchors (`F` and `J` physical bumps) before expanding to home row, top row, bottom row, numbers, and symbols.
+### 1. 🖐 Multi-Stage Finger School (10 Comprehensive Stages)
+- **Pedagogical Progression**: Starts slowly with single fingers and anchors (`F` and `J` physical bumps) before expanding across 10 progressive stages:
+  - **Stage 1**: Home Row Foundation (Index Anchors F & J, D & K, S & L, A & ;, Space Discipline, Mastery Words)
+  - **Stage 2**: Top Row & Upward Reaches (E & I, R & U, T & Y, W & O, Q & P)
+  - **Stage 3**: Bottom Row & Downward Reaches (C & ,, V & M, B & N, X & ., Z & /)
+  - **Stage 4**: Capitalization & Dual Shifts (Opposite Pinky Discipline)
+  - **Stage 5**: Number Row Mastery (Home-to-Number Reaches)
+  - **Stage 6**: Punctuation & Developer Symbols (Brackets `[]`, Braces `{}`, Semicolons `;`, Quotes, Operators)
+  - **Stage 7**: Core Bigrams & Rhythm Flow (`th`, `he`, `in`, `er`, `an`, `on`, double-letters)
+  - **Stage 8**: Developer Operators & Syntax Glyphs (`=>`, `===`, `!==`, `&&`, `||`, ternaries, chaining)
+  - **Stage 9**: Real-World Architecture & Flow (Async/await, OOP classes, TypeScript interfaces)
+  - **Stage 10**: Grandmaster Endurance Marathon (Multi-sentence stamina and rhythm crucible)
 - **Strict Accuracy Gate**: Lessons require **≥90% accuracy** to unlock the next level, cementing muscle memory before speed.
 - **Star Rating System**: Earn 1 to 5 stars on every lesson based on your combined speed and accuracy.
 
-### 2. 👐 Dual Animated Visual Hands Guide
-- Real-time vector SVG illustration of both Left and Right hands.
-- Highlights and elevates the exact finger responsible for the upcoming key in real time:
-  - **Left Hand**: Pinky (`Q, A, Z`), Ring (`W, S, X`), Middle (`E, D, C`), Index (`R, F, V, T, G, B`), Thumb (`Space`)
-  - **Right Hand**: Thumb (`Space`), Index (`Y, U, H, J, N, M`), Middle (`I, K, ,`), Ring (`O, L, .`), Pinky (`P, ;, /, etc.`)
+### 2. 👐 Redesigned Anatomical Vector Hands & 75% Mechanical Keyboard
+- **Sleek Anatomical Hands**: Ergonomic hand silhouettes in top-down resting position over the anchor keys with natural wrist curves, knuckle joint accents, and glowing fingertip neon sensor pads.
+- **Authentic 75% Mechanical Keyboard Layout**: 84-key ANSI layout with standard Function Row (`Esc`, `F1-F12`), compact navigation column (`Del`, `Home`, `PgUp`, `PgDn`, `End`), dedicated arrow cluster (`▲`, `▼`, `◄`, `►`), tactile bumps on `F` & `J`, and balanced 16u row grid.
 - **Dual-Shift Rules**: Enforces proper touch-typing shift discipline (Left pinky holds Shift for right-hand keys; Right pinky holds Shift for left-hand keys).
 
-### 3. 💻 Developer Code Arena (10 Programming Languages)
-Train real-world coding muscle memory (brackets `{}`, parentheses `()`, indents, semicolons `;`, arrow functions `=>`, operators `===`):
+### 3. 💻 Developer Code Arena (Gated by Stage 1 Mastery)
+- **Stage 1 Unlock Requirement**: To prevent bad habits, the Code Arena is locked until you complete all 6 lessons of Stage 1 (Home Row Foundation) with at least 90% accuracy.
+- Train real-world coding muscle memory across 10 programming languages (brackets `{}`, parentheses `()`, indents, semicolons `;`, arrow functions `=>`, operators `===`):
 - **JavaScript / TypeScript** (ES6 async/await, functional pipelines, classes)
 - **Python 3** (Comprehensions, context managers, algorithms)
 - **C# / .NET** (LINQ queries, generics, pattern matching)

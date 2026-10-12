@@ -83,7 +83,7 @@ class TypingKeyboard {
       'l': 'R_RING', 'L': 'R_RING',
       '.': 'R_RING', '>': 'R_RING',
 
-      // Right Pinky
+      // Right Pinky & Navigation
       '0': 'R_PINKY', ')': 'R_PINKY',
       '-': 'R_PINKY', '_': 'R_PINKY',
       '=': 'R_PINKY', '+': 'R_PINKY',
@@ -94,7 +94,14 @@ class TypingKeyboard {
       ';': 'R_PINKY', ':': 'R_PINKY',
       '\'': 'R_PINKY', '"': 'R_PINKY',
       '/': 'R_PINKY', '?': 'R_PINKY',
-      'enter': 'R_PINKY', 'backspace': 'R_PINKY', 'r_shift': 'R_PINKY'
+      'enter': 'R_PINKY', 'backspace': 'R_PINKY', 'r_shift': 'R_PINKY',
+      'escape': 'L_PINKY', 'esc': 'L_PINKY',
+      'del': 'R_PINKY', 'delete': 'R_PINKY',
+      'home': 'R_PINKY', 'end': 'R_PINKY',
+      'pgup': 'R_PINKY', 'pageup': 'R_PINKY',
+      'pgdn': 'R_PINKY', 'pagedown': 'R_PINKY',
+      'arrowup': 'R_PINKY', 'arrowleft': 'R_INDEX',
+      'arrowdown': 'R_MIDDLE', 'arrowright': 'R_RING'
     };
 
     // Characters that require Shift and which side of Shift to use
@@ -137,85 +144,113 @@ class TypingKeyboard {
     this.container.innerHTML = '';
     this.keyElements.clear();
 
+    // Authentic 75% Mechanical Keyboard Layout (84-key ANSI)
     const layout = [
-      // Row 0: Number Row
+      // Row 0: Function Row + Del
       [
-        { id: '`', label: '` ~', finger: 'L_PINKY' },
-        { id: '1', label: '1 !', finger: 'L_PINKY' },
-        { id: '2', label: '2 @', finger: 'L_RING' },
-        { id: '3', label: '3 #', finger: 'L_MIDDLE' },
-        { id: '4', label: '4 $', finger: 'L_INDEX' },
-        { id: '5', label: '5 %', finger: 'L_INDEX' },
-        { id: '6', label: '6 ^', finger: 'R_INDEX' },
-        { id: '7', label: '7 &', finger: 'R_INDEX' },
-        { id: '8', label: '8 *', finger: 'R_MIDDLE' },
-        { id: '9', label: '9 (', finger: 'R_RING' },
-        { id: '0', label: '0 )', finger: 'R_PINKY' },
-        { id: '-', label: '- _', finger: 'R_PINKY' },
-        { id: '=', label: '= +', finger: 'R_PINKY' },
-        { id: 'backspace', label: 'Backspace', class: 'key-backspace', finger: 'R_PINKY' }
+        { id: 'esc', label: 'Esc', class: 'u-1 key-accent', finger: 'L_PINKY' },
+        { id: 'f1', label: 'F1', class: 'u-1 key-subtle', finger: 'L_RING' },
+        { id: 'f2', label: 'F2', class: 'u-1 key-subtle', finger: 'L_RING' },
+        { id: 'f3', label: 'F3', class: 'u-1 key-subtle', finger: 'L_MIDDLE' },
+        { id: 'f4', label: 'F4', class: 'u-1 key-subtle', finger: 'L_INDEX' },
+        { id: 'f5', label: 'F5', class: 'u-1 key-subtle', finger: 'L_INDEX' },
+        { id: 'f6', label: 'F6', class: 'u-1 key-subtle', finger: 'R_INDEX' },
+        { id: 'f7', label: 'F7', class: 'u-1 key-subtle', finger: 'R_INDEX' },
+        { id: 'f8', label: 'F8', class: 'u-1 key-subtle', finger: 'R_MIDDLE' },
+        { id: 'f9', label: 'F9', class: 'u-1 key-subtle', finger: 'R_MIDDLE' },
+        { id: 'f10', label: 'F10', class: 'u-1 key-subtle', finger: 'R_RING' },
+        { id: 'f11', label: 'F11', class: 'u-1 key-subtle', finger: 'R_RING' },
+        { id: 'f12', label: 'F12', class: 'u-1 key-subtle', finger: 'R_PINKY' },
+        { id: 'del', label: 'Del', class: 'u-1 key-nav', finger: 'R_PINKY' }
       ],
-      // Row 1: Top Row
+      // Row 1: Number Row + Home
       [
-        { id: 'tab', label: 'Tab', class: 'key-tab', finger: 'L_PINKY' },
-        { id: 'q', label: 'Q', finger: 'L_PINKY' },
-        { id: 'w', label: 'W', finger: 'L_RING' },
-        { id: 'e', label: 'E', finger: 'L_MIDDLE' },
-        { id: 'r', label: 'R', finger: 'L_INDEX' },
-        { id: 't', label: 'T', finger: 'L_INDEX' },
-        { id: 'y', label: 'Y', finger: 'R_INDEX' },
-        { id: 'u', label: 'U', finger: 'R_INDEX' },
-        { id: 'i', label: 'I', finger: 'R_MIDDLE' },
-        { id: 'o', label: 'O', finger: 'R_RING' },
-        { id: 'p', label: 'P', finger: 'R_PINKY' },
-        { id: '[', label: '[ {', finger: 'R_PINKY' },
-        { id: ']', label: '] }', finger: 'R_PINKY' },
-        { id: '\\', label: '\\ |', finger: 'R_PINKY' }
+        { id: '`', label: '` ~', class: 'u-1', finger: 'L_PINKY' },
+        { id: '1', label: '1 !', class: 'u-1', finger: 'L_PINKY' },
+        { id: '2', label: '2 @', class: 'u-1', finger: 'L_RING' },
+        { id: '3', label: '3 #', class: 'u-1', finger: 'L_MIDDLE' },
+        { id: '4', label: '4 $', class: 'u-1', finger: 'L_INDEX' },
+        { id: '5', label: '5 %', class: 'u-1', finger: 'L_INDEX' },
+        { id: '6', label: '6 ^', class: 'u-1', finger: 'R_INDEX' },
+        { id: '7', label: '7 &', class: 'u-1', finger: 'R_INDEX' },
+        { id: '8', label: '8 *', class: 'u-1', finger: 'R_MIDDLE' },
+        { id: '9', label: '9 (', class: 'u-1', finger: 'R_RING' },
+        { id: '0', label: '0 )', class: 'u-1', finger: 'R_PINKY' },
+        { id: '-', label: '- _', class: 'u-1', finger: 'R_PINKY' },
+        { id: '=', label: '= +', class: 'u-1', finger: 'R_PINKY' },
+        { id: 'backspace', label: 'Backspace', class: 'u-2 key-backspace', finger: 'R_PINKY' },
+        { id: 'home', label: 'Home', class: 'u-1 key-nav', finger: 'R_PINKY' }
       ],
-      // Row 2: Home Row
+      // Row 2: Top Row + PgUp
       [
-        { id: 'caps', label: 'Caps', class: 'key-caps', finger: 'L_PINKY' },
-        { id: 'a', label: 'A', finger: 'L_PINKY' },
-        { id: 's', label: 'S', finger: 'L_RING' },
-        { id: 'd', label: 'D', finger: 'L_MIDDLE' },
-        { id: 'f', label: 'F', bump: true, finger: 'L_INDEX' },
-        { id: 'g', label: 'G', finger: 'L_INDEX' },
-        { id: 'h', label: 'H', finger: 'R_INDEX' },
-        { id: 'j', label: 'J', bump: true, finger: 'R_INDEX' },
-        { id: 'k', label: 'K', finger: 'R_MIDDLE' },
-        { id: 'l', label: 'L', finger: 'R_RING' },
-        { id: ';', label: '; :', finger: 'R_PINKY' },
-        { id: '\'', label: '\' "', finger: 'R_PINKY' },
-        { id: 'enter', label: 'Enter', class: 'key-enter', finger: 'R_PINKY' }
+        { id: 'tab', label: 'Tab', class: 'u-1-5 key-tab', finger: 'L_PINKY' },
+        { id: 'q', label: 'Q', class: 'u-1', finger: 'L_PINKY' },
+        { id: 'w', label: 'W', class: 'u-1', finger: 'L_RING' },
+        { id: 'e', label: 'E', class: 'u-1', finger: 'L_MIDDLE' },
+        { id: 'r', label: 'R', class: 'u-1', finger: 'L_INDEX' },
+        { id: 't', label: 'T', class: 'u-1', finger: 'L_INDEX' },
+        { id: 'y', label: 'Y', class: 'u-1', finger: 'R_INDEX' },
+        { id: 'u', label: 'U', class: 'u-1', finger: 'R_INDEX' },
+        { id: 'i', label: 'I', class: 'u-1', finger: 'R_MIDDLE' },
+        { id: 'o', label: 'O', class: 'u-1', finger: 'R_RING' },
+        { id: 'p', label: 'P', class: 'u-1', finger: 'R_PINKY' },
+        { id: '[', label: '[ {', class: 'u-1', finger: 'R_PINKY' },
+        { id: ']', label: '] }', class: 'u-1', finger: 'R_PINKY' },
+        { id: '\\', label: '\\ |', class: 'u-1-5', finger: 'R_PINKY' },
+        { id: 'pgup', label: 'PgUp', class: 'u-1 key-nav', finger: 'R_PINKY' }
       ],
-      // Row 3: Bottom Row
+      // Row 3: Home Row + PgDn
       [
-        { id: 'l_shift', label: 'Shift', class: 'key-shift-l', finger: 'L_PINKY' },
-        { id: 'z', label: 'Z', finger: 'L_PINKY' },
-        { id: 'x', label: 'X', finger: 'L_RING' },
-        { id: 'c', label: 'C', finger: 'L_MIDDLE' },
-        { id: 'v', label: 'V', finger: 'L_INDEX' },
-        { id: 'b', label: 'B', finger: 'L_INDEX' },
-        { id: 'n', label: 'N', finger: 'R_INDEX' },
-        { id: 'm', label: 'M', finger: 'R_INDEX' },
-        { id: ',', label: ', <', finger: 'R_MIDDLE' },
-        { id: '.', label: '. >', finger: 'R_RING' },
-        { id: '/', label: '/ ?', finger: 'R_PINKY' },
-        { id: 'r_shift', label: 'Shift', class: 'key-shift-r', finger: 'R_PINKY' }
+        { id: 'caps', label: 'Caps', class: 'u-1-75 key-caps', finger: 'L_PINKY' },
+        { id: 'a', label: 'A', class: 'u-1', finger: 'L_PINKY' },
+        { id: 's', label: 'S', class: 'u-1', finger: 'L_RING' },
+        { id: 'd', label: 'D', class: 'u-1', finger: 'L_MIDDLE' },
+        { id: 'f', label: 'F', class: 'u-1', bump: true, finger: 'L_INDEX' },
+        { id: 'g', label: 'G', class: 'u-1', finger: 'L_INDEX' },
+        { id: 'h', label: 'H', class: 'u-1', finger: 'R_INDEX' },
+        { id: 'j', label: 'J', class: 'u-1', bump: true, finger: 'R_INDEX' },
+        { id: 'k', label: 'K', class: 'u-1', finger: 'R_MIDDLE' },
+        { id: 'l', label: 'L', class: 'u-1', finger: 'R_RING' },
+        { id: ';', label: '; :', class: 'u-1', finger: 'R_PINKY' },
+        { id: '\'', label: '\' "', class: 'u-1', finger: 'R_PINKY' },
+        { id: 'enter', label: 'Enter', class: 'u-2-25 key-enter', finger: 'R_PINKY' },
+        { id: 'pgdn', label: 'PgDn', class: 'u-1 key-nav', finger: 'R_PINKY' }
       ],
-      // Row 4: Space Row
+      // Row 4: Bottom Row + Up Arrow + End
       [
-        { id: 'l_ctrl', label: 'Ctrl', finger: 'L_PINKY' },
-        { id: 'l_alt', label: 'Alt', finger: 'THUMB' },
-        { id: ' ', label: 'Space', class: 'key-space', finger: 'THUMB' },
-        { id: 'r_alt', label: 'Alt', finger: 'THUMB' },
-        { id: 'r_ctrl', label: 'Ctrl', finger: 'R_PINKY' }
+        { id: 'l_shift', label: 'Shift', class: 'u-2-25 key-shift-l', finger: 'L_PINKY' },
+        { id: 'z', label: 'Z', class: 'u-1', finger: 'L_PINKY' },
+        { id: 'x', label: 'X', class: 'u-1', finger: 'L_RING' },
+        { id: 'c', label: 'C', class: 'u-1', finger: 'L_MIDDLE' },
+        { id: 'v', label: 'V', class: 'u-1', finger: 'L_INDEX' },
+        { id: 'b', label: 'B', class: 'u-1', finger: 'L_INDEX' },
+        { id: 'n', label: 'N', class: 'u-1', finger: 'R_INDEX' },
+        { id: 'm', label: 'M', class: 'u-1', finger: 'R_INDEX' },
+        { id: ',', label: ', <', class: 'u-1', finger: 'R_MIDDLE' },
+        { id: '.', label: '. >', class: 'u-1', finger: 'R_RING' },
+        { id: '/', label: '/ ?', class: 'u-1', finger: 'R_PINKY' },
+        { id: 'r_shift', label: 'Shift', class: 'u-1-75 key-shift-r', finger: 'R_PINKY' },
+        { id: 'arrowup', label: '▲', class: 'u-1 key-arrow key-arrow-up', finger: 'R_PINKY' },
+        { id: 'end', label: 'End', class: 'u-1 key-nav', finger: 'R_PINKY' }
+      ],
+      // Row 5: Space Row + Arrows Cluster
+      [
+        { id: 'l_ctrl', label: 'Ctrl', class: 'u-1-25 key-mod', finger: 'L_PINKY' },
+        { id: 'l_win', label: 'Win', class: 'u-1-25 key-mod', finger: 'L_PINKY' },
+        { id: 'l_alt', label: 'Alt', class: 'u-1-25 key-mod', finger: 'THUMB' },
+        { id: ' ', label: 'Space', class: 'u-6-25 key-space', finger: 'THUMB' },
+        { id: 'r_alt', label: 'Alt', class: 'u-1 key-mod', finger: 'THUMB' },
+        { id: 'fn', label: 'Fn', class: 'u-1 key-mod', finger: 'R_PINKY' },
+        { id: 'r_ctrl', label: 'Ctrl', class: 'u-1 key-mod', finger: 'R_PINKY' },
+        { id: 'arrowleft', label: '◄', class: 'u-1 key-arrow key-arrow-left', finger: 'R_INDEX' },
+        { id: 'arrowdown', label: '▼', class: 'u-1 key-arrow key-arrow-down', finger: 'R_MIDDLE' },
+        { id: 'arrowright', label: '►', class: 'u-1 key-arrow key-arrow-right', finger: 'R_RING' }
       ]
     ];
 
-    layout.forEach(rowDef => {
+    layout.forEach((rowDef, rowIdx) => {
       const rowEl = document.createElement('div');
-      rowEl.className = 'kb-row';
+      rowEl.className = `kb-row kb-row-${rowIdx}`;
 
       rowDef.forEach(k => {
         const keyEl = document.createElement('div');
@@ -224,7 +259,7 @@ class TypingKeyboard {
         keyEl.dataset.finger = k.finger;
         keyEl.textContent = k.label;
 
-        // Apply subtle finger color accent to border
+        // Apply subtle finger color accent to keycap base
         const fingerColor = this.fingerColors[k.finger];
         if (fingerColor) {
           keyEl.style.borderBottomColor = fingerColor;

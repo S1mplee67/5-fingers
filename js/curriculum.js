@@ -295,6 +295,142 @@ const Curriculum = {
           text: "if (a === b) => { return true; } x <= 10 && y >= 20; const fn = () => {};"
         }
       ]
+    },
+    {
+      id: 7,
+      name: "Core Bigrams & Rhythm Flow",
+      description: "Build fluent typing rhythm with the most common English character pairs (th, he, in, er, an, on).",
+      icon: "🌊",
+      lessons: [
+        {
+          id: "7.1",
+          stageId: 7,
+          title: "The Core Bigram — TH and HE",
+          instructions: "Practice 'th' and 'he' without pausing. Let the two keystrokes blend into a single rhythmic impulse.",
+          targetKeys: ["t", "h", "e", " "],
+          text: "the then they them their there these that this the other think rather weather breathe rhythm"
+        },
+        {
+          id: "7.2",
+          stageId: 7,
+          title: "Fluid Connectors — AN, IN, ER, ON",
+          instructions: "Connect frequent inward rolls smoothly.",
+          targetKeys: ["a", "n", "i", "e", "r", "o", " "],
+          text: "an in er on and into under only plan dinner person wonder front action manner season"
+        },
+        {
+          id: "7.3",
+          stageId: 7,
+          title: "Double-Letter Rapid Fire",
+          instructions: "Type consecutive identical keys with quick, light double-taps.",
+          targetKeys: ["e", "o", "t", "p", "f", "l", " "],
+          text: "see look feel good little happen cannot between letter differ follow support connect trigger"
+        },
+        {
+          id: "7.4",
+          stageId: 7,
+          title: "High-Frequency English Sprint",
+          instructions: "Combine bigrams into common English everyday prose.",
+          targetKeys: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "],
+          text: "the of and a to in is you that it he was for on are as with his they I at be this have from"
+        }
+      ]
+    },
+    {
+      id: 8,
+      name: "Developer Operators & Syntax Glyphs",
+      description: "Drill high-intensity programming operator combinations: arrows =>, equality ===, ternaries, and chaining.",
+      icon: "⚡",
+      lessons: [
+        {
+          id: "8.1",
+          stageId: 8,
+          title: "Arrow Functions & Equality",
+          instructions: "Arrows => and strict equality === are typed constantly in modern software.",
+          targetKeys: ["=", ">", "!", "(", ")", "{", "}", ";", " "],
+          text: "const fn = (x) => x * 2; if (a === b) { return true; } if (item !== null) { process(); }"
+        },
+        {
+          id: "8.2",
+          stageId: 8,
+          title: "Logical Operators & Ternaries",
+          instructions: "&&, ||, and ternary (? :) conditions with smooth finger movement.",
+          targetKeys: ["&", "|", "?", ":", ">", "<", "'", ";", " "],
+          text: "isValid && isReady; value || defaultValue; const result = count > 0 ? 'active' : 'idle';"
+        },
+        {
+          id: "8.3",
+          stageId: 8,
+          title: "Array Chaining & Indexing",
+          instructions: "Square brackets [] and chained higher-order methods.",
+          targetKeys: ["[", "]", ".", "(", ")", ">", "=", " "],
+          text: "items[0].name; list.map(x => x.id).filter(Boolean); data.reduce((acc, curr) => acc + curr, 0);"
+        },
+        {
+          id: "8.4",
+          stageId: 8,
+          title: "Destructuring & Template Literals",
+          instructions: "Curly braces {} and template literal backticks ``.",
+          targetKeys: ["{", "}", "`", "$", ":", ";", " "],
+          text: "const { id, title } = payload; const msg = `User #${id}: ${title.toUpperCase()}`; log(msg);"
+        }
+      ]
+    },
+    {
+      id: 9,
+      name: "Real-World Architecture & Flow",
+      description: "Type realistic production code blocks across async functions, classes, and typed interfaces.",
+      icon: "🏗️",
+      lessons: [
+        {
+          id: "9.1",
+          stageId: 9,
+          title: "Async / Await API Fetching",
+          instructions: "Simulate real asynchronous networking boilerplate.",
+          targetKeys: ["a", "s", "y", "n", "c", "w", "f", "e", "t", "h", "(", ")", "{", "}", ";"],
+          text: "async function loadData(url) { const res = await fetch(url); return await res.json(); }"
+        },
+        {
+          id: "9.2",
+          stageId: 9,
+          title: "Class Constructor & Event Emitter",
+          instructions: "Object-oriented programming patterns with methods and Maps.",
+          targetKeys: ["c", "l", "a", "s", "t", "r", "u", "o", "(", ")", "{", "}", ";"],
+          text: "class EventEmitter { constructor() { this.events = new Map(); } emit(name, data) { } }"
+        },
+        {
+          id: "9.3",
+          stageId: 9,
+          title: "Generic Interface Contract",
+          instructions: "TypeScript generics <T> and contract definitions.",
+          targetKeys: ["<", ">", ":", ";", "{", "}", " "],
+          text: "interface Config<T> { readonly id: string; payload: T; active: boolean; validate(): boolean; }"
+        }
+      ]
+    },
+    {
+      id: 10,
+      name: "Grandmaster Endurance Marathon",
+      description: "The ultimate touch-typing benchmark: long multi-sentence endurance testing rhythm, stamina, and zero errors.",
+      icon: "🏆",
+      lessons: [
+        {
+          id: "10.1",
+          stageId: 10,
+          title: "The 10-Finger Speed Crucible",
+          instructions: "Maintain a steady pace without pausing or looking down.",
+          targetKeys: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", ".", ",", " "],
+          text: "Consistency beats raw speed every single day. Keep your wrists hovering smoothly above the desk, breathe evenly, and let muscle memory drive every keystroke."
+        },
+        {
+          id: "10.2",
+          stageId: 10,
+          title: "Full Keyboard Symphony",
+          instructions: "Combine prose, symbols, numbers, and functions in a final master challenge.",
+          targetKeys: ["f", "u", "n", "c", "t", "i", "o", "(", ")", "{", "}", "=", ";", "\"", "'", "1", "0"],
+          text: "function benchmark(runs = 1000) { for (let i = 0; i < runs; i++) { calculate(i * 1.5, [1, 2, 3]); } return 'Passed 100%!'; }"
+        }
+      ]
     }
   ],
 
@@ -353,5 +489,15 @@ const Curriculum = {
       return all[idx + 1].id;
     }
     return null;
+  },
+
+  isStageCompleted(stageId, completedLessons) {
+    const stage = this.stages.find(s => s.id === stageId);
+    if (!stage) return false;
+    if (!completedLessons) return false;
+    return stage.lessons.every(lesson => {
+      const rec = completedLessons[lesson.id];
+      return rec && rec.stars >= 1;
+    });
   }
 };

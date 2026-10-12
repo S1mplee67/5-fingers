@@ -102,6 +102,28 @@ header#app-header {
   border: 1px solid var(--border-highlight);
 }
 
+.nav-btn.nav-locked {
+  opacity: 0.7;
+  cursor: pointer;
+  border-style: dashed;
+}
+
+.nav-btn.nav-locked:hover {
+  border-color: var(--color-incorrect);
+  color: var(--text-primary);
+}
+
+.lock-pill {
+  font-size: 9px;
+  background: rgba(255, 71, 87, 0.25);
+  color: #ff6b81;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-weight: 700;
+  margin-left: 4px;
+  letter-spacing: 0.4px;
+}
+
 /* Controls */
 .header-controls {
   display: flex;
@@ -251,14 +273,23 @@ main#app-main {
   font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
   letter-spacing: 1px;
   user-select: none;
-  word-break: break-all;
-  white-space: pre-wrap;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0;
+}
+
+.word {
+  display: inline-flex;
+  white-space: nowrap;
 }
 
 .char {
   color: var(--color-untyped);
   position: relative;
   transition: color 0.08s ease;
+  display: inline-block;
 }
 
 .char.correct {
@@ -285,9 +316,10 @@ main#app-main {
   top: 0;
   left: 0;
   border-radius: 1px;
-  transition: transform 0.08s cubic-bezier(0.1, 0.9, 0.2, 1);
+  transition: transform 0.06s cubic-bezier(0.1, 0.9, 0.2, 1);
   animation: blinkCaret 1s infinite ease-in-out;
   pointer-events: none;
+  z-index: 10;
 }
 
 @keyframes blinkCaret {
@@ -360,28 +392,35 @@ main#app-main {
   transform: translateY(-4px);
 }
 
-/* Virtual Keyboard */
+/* Virtual 75% Mechanical Keyboard */
 #keyboard-container {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: 14px;
-  padding: 16px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
   user-select: none;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .kb-row {
   display: flex;
-  gap: 6px;
-  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.kb-row-0 {
+  margin-bottom: 3px;
 }
 
 .kb-key {
-  height: 44px;
-  min-width: 44px;
+  height: 42px;
   background: var(--key-bg);
   border: 1px solid var(--border-subtle);
   border-radius: 6px;
@@ -389,18 +428,20 @@ main#app-main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-secondary);
-  transition: all 0.1s ease;
+  transition: all 0.08s ease;
   position: relative;
-  padding: 0 4px;
+  padding: 0 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .kb-key.bump::after {
   content: "";
   position: absolute;
-  bottom: 5px;
+  bottom: 4px;
   width: 10px;
   height: 2px;
   background: var(--text-muted);
@@ -412,6 +453,7 @@ main#app-main {
   box-shadow: var(--key-active-shadow);
   color: #fff;
   transform: translateY(-2px);
+  z-index: 2;
 }
 
 .kb-key.pressed-correct {
@@ -426,10 +468,30 @@ main#app-main {
   color: var(--color-incorrect) !important;
 }
 
-/* Special Key Widths */
-.key-backspace, .key-tab, .key-caps, .key-enter { flex: 1.5; }
-.key-shift-l, .key-shift-r { flex: 2; }
-.key-space { flex: 5.5; }
+/* 75% Proportional Unit Widths (16u exact grid) */
+.u-1 { flex: 1; }
+.u-1-25 { flex: 1.25; }
+.u-1-5 { flex: 1.5; }
+.u-1-75 { flex: 1.75; }
+.u-2 { flex: 2; }
+.u-2-25 { flex: 2.25; }
+.u-6-25 { flex: 6.25; }
+
+/* Key Category Aesthetics */
+.key-nav {
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.key-subtle {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.key-arrow {
+  font-size: 10px;
+}
 
 /* Modals & Overlays */
 .modal-overlay {

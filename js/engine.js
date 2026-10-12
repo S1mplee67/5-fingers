@@ -28,6 +28,10 @@ class TypingEngine {
     this.isFinished = false;
     this.lastKeystrokeTime = null;
     this.keystrokeIntervals = [];
+
+    window.addEventListener('resize', () => {
+      this.updateCaret();
+    });
   }
 
   loadText(text) {
@@ -44,9 +48,16 @@ class TypingEngine {
     if (!this.wordsContainer) return;
 
     this.wordsContainer.innerHTML = '';
+    if (this.caret) {
+      this.wordsContainer.appendChild(this.caret);
+    }
     this.charSpans = [];
 
-    // Render characters into spans
+    // Group characters into .word wrappers to prevent awkward mid-word line-wrapping
+    let currentWordDiv = document.createElement('div');
+    currentWordDiv.className = 'word';
+    this.wordsContainer.appendChild(currentWordDiv);
+
     for (let i = 0; i < text.length; i++) {
       const char = text[i];
       const span = document.createElement('span');
@@ -56,15 +67,28 @@ class TypingEngine {
       if (char === '\n') {
         span.innerHTML = '↵<br>';
         span.classList.add('char-newline');
+        currentWordDiv.appendChild(span);
+        this.charSpans.push(span);
+
+        // Break onto new line
+        currentWordDiv = document.createElement('div');
+        currentWordDiv.className = 'word';
+        this.wordsContainer.appendChild(currentWordDiv);
       } else if (char === ' ') {
         span.innerHTML = '&nbsp;';
         span.classList.add('char-space');
+        currentWordDiv.appendChild(span);
+        this.charSpans.push(span);
+
+        // After space, create new word wrapper
+        currentWordDiv = document.createElement('div');
+        currentWordDiv.className = 'word';
+        this.wordsContainer.appendChild(currentWordDiv);
       } else {
         span.textContent = char;
+        currentWordDiv.appendChild(span);
+        this.charSpans.push(span);
       }
-
-      this.wordsContainer.appendChild(span);
-      this.charSpans.push(span);
     }
 
     if (this.charSpans.length > 0) {
@@ -205,6 +229,7 @@ class TypingEngine {
       const top = spanRect.top - containerRect.top;
 
       this.caret.style.transform = `translate(${left}px, ${top}px)`;
+      this.caret.style.height = `${spanRect.height || 28}px`;
       this.caret.style.display = 'block';
     }
   }
