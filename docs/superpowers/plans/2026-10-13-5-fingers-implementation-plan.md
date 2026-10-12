@@ -281,7 +281,7 @@ Bind DOM events, route between Lesson Tree, Code Arena, Speed Test, and Analytic
 Windows offline launcher script and native C# compiler script matching *Duplicates by S1mplee67* design.
 
 - [ ] **Step 3: Create `README.md` and `LICENSE` (MIT)**
-Create documentation with branding for S1mplee67 (W3NCY?), ICCT Colleges credit, feature lists, keyboard shortcut guides, and offline instructions.
+Create documentation with branding for S1mplee67 (W3NCY?), feature lists, keyboard shortcut guides, and offline instructions.
 
 ---
 

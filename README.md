@@ -158,7 +158,6 @@ build.bat
 ## 👤 About the Author
 
 Created by **[S1mplee67 (W3NCY?)](https://github.com/S1mplee67)**  
-Fourth-year Computer Engineering student at **ICCT Colleges, Cainta, Philippines**.  
 Creator of **[Duplicates by S1mplee67](https://github.com/S1mplee67/duplicates-by-s1mplee67)**.
 
 ---
