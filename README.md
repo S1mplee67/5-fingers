@@ -12,7 +12,7 @@
 ```
 
 ### ⚡ Offline Touch Typing & Multi-Language Code Trainer
-*Disciplined Muscle Memory Training • Visual Hands Guidance • Monkeytype Telemetry*
+*Disciplined Muscle Memory Training • Visual Hands Guidance • High-Precision Telemetry*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg)](Run-5FINGERS.bat)
@@ -25,7 +25,7 @@
 
 ## 🌟 Overview
 
-**5 F!NGERS** is a fast, 100% offline computer touch-typing tutor and developer syntax training app. Created by **S1mplee67 (W3NCY?)**, it combines the disciplined pedagogical multi-stage progression of **[TypingClub](https://www.typingclub.com/)** with the modern telemetry, microsecond caret physics, and aesthetic feel of **[Monkeytype](https://monkeytype.com/)**.
+**5 F!NGERS** is a fast, 100% offline computer touch-typing tutor and developer syntax training app. Created by **S1mplee67 (W3NCY?)**, it combines the disciplined pedagogical multi-stage progression of **[TypingClub](https://www.typingclub.com/)** with modern telemetry, microsecond caret physics, and dark aesthetic themes.
 
 Unlike standard typing websites that require constant internet connections, logins, or paid subscription tiers, **5 F!NGERS** runs directly on your Windows PC with **zero external dependencies, zero sign-in, and zero tracking**, while persistently saving all your progress, stars, WPM improvement charts, and finger mistake heatmaps locally.
 
@@ -67,12 +67,17 @@ Unlike standard typing websites that require constant internet connections, logi
 - **HTML5 & CSS3** (Flexbox components, custom properties, responsive grids)
 - **Bash / Linux Shell** (Pipes `grep | awk | sort`, flags, scripts)
 
-### 4. ⚡ Monkeytype-Style Telemetry & Physics
+### 4. ⚡ High-Precision Telemetry & 3-Tier Speed Sprints
 - Butter-smooth animated caret with sub-millisecond input responsiveness.
 - Live real-time meters for **WPM, Raw WPM, Accuracy %, and Consistency %**.
-- 25-word speed sprints for rapid warmups.
+- **3 Sprint Options**: Choose between **Short (15 words)** rapid bursts, **Medium (30 words)** standard tests, or **Long (60 words)** endurance sprints.
 
-### 5. 🔊 Synthetic Mechanical Keyboard Audio (Zero External Files)
+### 5. 💡 Glowing Wisdom Lightbulb & 36 RNG Tips Engine
+- Animated golden/amber neon pulsing lightbulb with interactive scale-glow on hover.
+- Interactive **🎲 Roll Tip** system with 36 curated touch-typing, ergonomics, switch mechanics, and programming syntax tips.
+- Instant, non-intrusive re-roll on click with smooth text fade transitions.
+
+### 6. 🔊 Synthetic Mechanical Keyboard Audio (Zero External Files)
 Synthesized live via the Web Audio API without needing external sound samples:
 - **Cherry MX Blue**: Crisp tactile click.
 - **Cherry MX Red**: Smooth linear clack.
@@ -80,13 +85,13 @@ Synthesized live via the Web Audio API without needing external sound samples:
 - **Vintage Typewriter**: Heavy mechanical thud with completion carriage bell chime.
 - **Mute**: Pure silent mode for quiet environments.
 
-### 6. 🎨 Hand-Crafted Visual Themes
+### 7. 🎨 Hand-Crafted Visual Themes
 - **Cyber Slate (Default)**: Deep carbon slate with tactical cyan accents.
 - **Midnight Obsidian (Eye Relief)**: Pure OLED dark with warm sepia parchment text for late-night typing sessions.
 - **Nordic Frost**: Cold graphite with arctic blue highlights.
 - **Retro Phosphor**: Classic terminal phosphor green.
 
-### 7. 📊 Offline Analytics & 10-Finger Error Heatmaps
+### 8. 📊 Offline Analytics & 10-Finger Error Heatmaps
 - Interactive 2D canvas curve tracking your WPM speed over time.
 - 10-finger error heatmap visually pinpointing your weakest fingers.
 - Top mistyped key badges (e.g. `p`, `b`, `;`).

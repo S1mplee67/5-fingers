@@ -346,9 +346,9 @@ class FiveFingersApp {
       const count = countMap[this.speedTestLength] || 30;
 
       const titlesMap = {
-        'short': { tag: '⚡ SPRINT (15W)', title: '15 Words Monkeytype Speed Sprint' },
-        'medium': { tag: '⚡ SPRINT (30W)', title: '30 Words Monkeytype Standard Sprint' },
-        'long': { tag: '⚡ SPRINT (60W)', title: '60 Words Monkeytype Endurance Sprint' }
+        'short': { tag: '⚡ SPRINT (15W)', title: '15 Words Speed Sprint' },
+        'medium': { tag: '⚡ SPRINT (30W)', title: '30 Words Standard Sprint' },
+        'long': { tag: '⚡ SPRINT (60W)', title: '60 Words Endurance Sprint' }
       };
       const meta = titlesMap[this.speedTestLength] || titlesMap['medium'];
 

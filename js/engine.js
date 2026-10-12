@@ -2,7 +2,7 @@
  * 5 F!NGERS - Core Typing Engine & Telemetry
  * Created by S1mplee67 (W3NCY?)
  * 
- * High-precision keystroke interpreter, Monkeytype-style smooth caret,
+ * High-precision keystroke interpreter, ultra-smooth animated caret,
  * live WPM / Accuracy / Consistency calculations, and hardware audio sync.
  */
 
