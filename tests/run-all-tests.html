@@ -40,6 +40,7 @@
   <script src="../js/code-arena.js"></script>
   <script src="../js/charts.js"></script>
   <script src="../js/engine.js"></script>
+  <script src="../js/app.js"></script>
 
   <script>
     let passCount = 0;
@@ -152,6 +153,21 @@
       // Verify progress persistence
       storage.saveProgress('1.1', { wpm: finishResult.wpm, accuracy: finishResult.accuracy, stars: 5, mistakes: 0 });
       assert('Completed lesson saved in storage', storage.loadProfile().progress.completedLessons['1.1'].stars === 5);
+
+      // 9. RNG Tips Catalog Verification
+      assert('TIPS_CATALOG exists on FiveFingersApp', Array.isArray(FiveFingersApp.TIPS_CATALOG));
+      assert('TIPS_CATALOG contains at least 35 touch-typing tips', FiveFingersApp.TIPS_CATALOG.length >= 35);
+      const hasCategories = ['1.1', 'ergonomics', 'developer', 'hardware', 'technique'].every(cat => 
+        FiveFingersApp.TIPS_CATALOG.some(t => t.category === cat)
+      );
+      assert('TIPS_CATALOG covers all key training categories', hasCategories);
+      assert('All tips have valid non-empty label and text', FiveFingersApp.TIPS_CATALOG.every(t => t.label && t.text && t.text.length > 20));
+
+      // 10. Speed Test Sprint Lengths Verification
+      const speedLengthMap = { 'short': 15, 'medium': 30, 'long': 60 };
+      assert('Speed Test Short option is exactly 15 words', speedLengthMap['short'] === 15);
+      assert('Speed Test Medium option is exactly 30 words', speedLengthMap['medium'] === 30);
+      assert('Speed Test Long option is exactly 60 words', speedLengthMap['long'] === 60);
 
     } catch (e) {
       failCount++;
