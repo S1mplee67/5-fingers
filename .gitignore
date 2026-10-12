@@ -1,6 +1,7 @@
 # Temporary test outputs
 test-out.txt
 *.log
+*.zip
 
 # System files
 Thumbs.db
