@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Audio Unit Tests</title>
+</head>
+<body>
+  <div id="test-results" style="font-family: monospace; padding: 20px;"></div>
+  <script src="../js/audio.js"></script>
+  <script>
+    const results = [];
+    function assert(name, condition) {
+      if (condition) {
+        results.push(`<div style="color: green;">✔ PASS: ${name}</div>`);
+      } else {
+        results.push(`<div style="color: red;">✖ FAIL: ${name}</div>`);
+      }
+    }
+
+    try {
+      const sound = new SoundEngine();
+      assert('SoundEngine instantiated', sound !== undefined);
+      assert('Default switch is cherry-blue', sound.switchType === 'cherry-blue');
+      assert('Default volume is 0.5', sound.volume === 0.5);
+
+      sound.setSwitch('cherry-red');
+      assert('Switch updated to cherry-red', sound.switchType === 'cherry-red');
+
+      sound.setSwitch('typewriter');
+      assert('Switch updated to typewriter', sound.switchType === 'typewriter');
+
+      sound.setVolume(1.5);
+      assert('Volume capped at 1.0 max', sound.volume === 1.0);
+
+      sound.setVolume(-0.5);
+      assert('Volume floored at 0.0 min', sound.volume === 0.0);
+
+      sound.setVolume(0.6);
+      assert('Volume set correctly to 0.6', sound.volume === 0.6);
+
+      sound.setSwitch('mute');
+      assert('Switch set to mute', sound.switchType === 'mute');
+
+      // Test safe playback calls in mute
+      sound.playClick();
+      sound.playError();
+      sound.playLevelComplete();
+      assert('Mute playback executes safely without throwing', true);
+
+      // Switch to cherry-blue and test methods
+      sound.setSwitch('cherry-blue');
+      sound.playClick();
+      sound.playError();
+      sound.playLevelComplete();
+      assert('Active playback functions run safely', true);
+
+    } catch (err) {
+      results.push(`<div style="color: red;">✖ EXCEPTION: ${err.message}</div>`);
+    }
+
+    document.getElementById('test-results').innerHTML = results.join('');
+  </script>
+</body>
+</html>

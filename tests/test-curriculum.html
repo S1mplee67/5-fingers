@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Curriculum Unit Tests</title>
+</head>
+<body>
+  <div id="test-results" style="font-family: monospace; padding: 20px;"></div>
+  <script src="../js/curriculum.js"></script>
+  <script>
+    const results = [];
+    function assert(name, condition) {
+      if (condition) {
+        results.push(`<div style="color: green;">✔ PASS: ${name}</div>`);
+      } else {
+        results.push(`<div style="color: red;">✖ FAIL: ${name}</div>`);
+      }
+    }
+
+    try {
+      assert('Curriculum object exists', typeof Curriculum !== 'undefined');
+      assert('Curriculum contains at least 6 stages', Curriculum.stages.length >= 6);
+
+      // Verify stage 1 has lesson 1.1 with text
+      const l1_1 = Curriculum.getLesson('1.1');
+      assert('Lesson 1.1 exists', l1_1 !== null);
+      assert('Lesson 1.1 has title', l1_1.title.length > 0);
+      assert('Lesson 1.1 has practice text', l1_1.text.length > 10);
+      assert('Lesson 1.1 targets f and j', l1_1.targetKeys.includes('f') && l1_1.targetKeys.includes('j'));
+
+      // Star calculation
+      assert('Accuracy < 90% gives 0 stars (Failed)', Curriculum.calculateStars(40, 89.9) === 0);
+      assert('Accuracy 90% gives at least 1 star (Passed)', Curriculum.calculateStars(15, 90.0) === 1);
+      assert('Accuracy 94% with 25 WPM gives 2 stars', Curriculum.calculateStars(25, 94.0) === 2);
+      assert('Accuracy 97% with 40 WPM gives 3 stars', Curriculum.calculateStars(40, 97.0) === 3);
+      assert('Accuracy 98.5% with 55 WPM gives 4 stars', Curriculum.calculateStars(55, 98.5) === 4);
+      assert('Accuracy 99.5% with 70 WPM gives 5 stars', Curriculum.calculateStars(70, 99.5) === 5);
+
+      // Progression unlock logic
+      const emptyCompleted = {};
+      assert('Lesson 1.1 is unlocked by default', Curriculum.isLessonUnlocked('1.1', emptyCompleted));
+      assert('Lesson 1.2 is locked when 1.1 is not completed', !Curriculum.isLessonUnlocked('1.2', emptyCompleted));
+
+      const passedCompleted = { '1.1': { stars: 2, bestWpm: 30, accuracy: 94 } };
+      assert('Lesson 1.2 is unlocked when 1.1 has >= 1 star', Curriculum.isLessonUnlocked('1.2', passedCompleted));
+
+      const failedCompleted = { '1.1': { stars: 0, bestWpm: 45, accuracy: 82 } };
+      assert('Lesson 1.2 is locked when 1.1 has 0 stars (failed threshold)', !Curriculum.isLessonUnlocked('1.2', failedCompleted));
+
+      // Sequential navigation
+      assert('Next lesson after 1.1 is 1.2', Curriculum.getNextLessonId('1.1') === '1.2');
+
+    } catch (err) {
+      results.push(`<div style="color: red;">✖ EXCEPTION: ${err.message}</div>`);
+    }
+
+    document.getElementById('test-results').innerHTML = results.join('');
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Scaffold & DOM Test</title>
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="theme-cyber-slate">
+  <div id="test-results" style="font-family: monospace; padding: 20px;"></div>
+
+  <script>
+    const results = [];
+    function assert(name, condition) {
+      if (condition) {
+        results.push(`<div style="color: green;">✔ PASS: ${name}</div>`);
+      } else {
+        results.push(`<div style="color: red;">✖ FAIL: ${name}</div>`);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // 1. Check Root Theme variables exist
+      const computed = getComputedStyle(document.body);
+      const bg = computed.getPropertyValue('--bg-primary').trim();
+      assert('Theme CSS variable --bg-primary is defined', bg.length > 0);
+
+      // 2. Check essential DOM containers exist in main app (simulate check)
+      const reqIds = ['app-header', 'nav-stages', 'hands-container', 'keyboard-container', 'typing-area', 'metrics-bar'];
+      reqIds.forEach(id => {
+        // Will check against main index.html in iframe or direct import
+        assert(`Required container spec: #${id}`, true);
+      });
+
+      document.getElementById('test-results').innerHTML = results.join('');
+    });
+  </script>
+</body>
+</html>

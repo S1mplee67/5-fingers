@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Storage Unit Tests</title>
+</head>
+<body>
+  <div id="test-results" style="font-family: monospace; padding: 20px;"></div>
+  <script src="../js/storage.js"></script>
+  <script>
+    const results = [];
+    function assert(name, condition) {
+      if (condition) {
+        results.push(`<div style="color: green;">✔ PASS: ${name}</div>`);
+      } else {
+        results.push(`<div style="color: red;">✖ FAIL: ${name}</div>`);
+      }
+    }
+
+    try {
+      localStorage.clear();
+      const storage = new TypingStorage('test_s1mplee67_storage');
+
+      // 1. Initial Load
+      const profile = storage.loadProfile();
+      assert('Profile initializes with user S1mplee67', profile.user === 'S1mplee67');
+      assert('Initial completed lessons is empty', Object.keys(profile.progress.completedLessons).length === 0);
+      assert('Initial unlocked lessons contains 1.1', profile.progress.unlockedLessons.includes('1.1'));
+
+      // 2. Save Progress
+      storage.saveProgress('1.1', { wpm: 52, accuracy: 98.5, stars: 4, mistakes: 1 });
+      const updated = storage.loadProfile();
+      assert('Lesson 1.1 recorded in completedLessons', updated.progress.completedLessons['1.1'] !== undefined);
+      assert('Lesson 1.1 has correct bestWpm', updated.progress.completedLessons['1.1'].bestWpm === 52);
+      assert('Total tests count incremented to 1', updated.stats.totalTests === 1);
+      assert('Highest WPM updated to 52', updated.stats.highestWpm === 52);
+
+      // 3. Finger and Key Mistakes
+      storage.recordFingerMistake('L_INDEX', 'f');
+      storage.recordFingerMistake('L_INDEX', 'f');
+      storage.recordFingerMistake('R_PINKY', 'p');
+      const errProfile = storage.loadProfile();
+      assert('L_INDEX error count is 2', errProfile.stats.fingerErrors['L_INDEX'] === 2);
+      assert('Mistake key "f" count is 2', errProfile.stats.keyMistakes['f'] === 2);
+      assert('Mistake key "p" count is 1', errProfile.stats.keyMistakes['p'] === 1);
+
+      // 4. Export & Import
+      const backupJson = storage.exportBackup();
+      assert('Export produces valid JSON string', typeof backupJson === 'string' && backupJson.length > 50);
+      
+      localStorage.clear();
+      const freshStorage = new TypingStorage('test_s1mplee67_storage');
+      const imported = freshStorage.importBackup(backupJson);
+      assert('Import succeeds and returns true', imported === true);
+      assert('Imported profile retains Lesson 1.1', freshStorage.loadProfile().progress.completedLessons['1.1'] !== undefined);
+
+      // 5. Reset
+      freshStorage.resetProgress();
+      assert('Reset clears completed lessons', Object.keys(freshStorage.loadProfile().progress.completedLessons).length === 0);
+
+    } catch (err) {
+      results.push(`<div style="color: red;">✖ EXCEPTION: ${err.message}</div>`);
+    }
+
+    document.getElementById('test-results').innerHTML = results.join('');
+  </script>
+</body>
+</html>

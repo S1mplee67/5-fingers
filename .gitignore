@@ -1,0 +1,13 @@
+# Temporary test outputs
+test-out.txt
+*.log
+
+# System files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor & Assistant directories
+.vscode/
+.idea/
+.superpowers/

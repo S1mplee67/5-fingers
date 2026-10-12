@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Virtual Keyboard Unit Tests</title>
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="theme-cyber-slate">
+  <div id="keyboard-container"></div>
+  <div id="test-results" style="font-family: monospace; padding: 20px;"></div>
+
+  <script src="../js/keyboard.js"></script>
+  <script>
+    const results = [];
+    function assert(name, condition) {
+      if (condition) {
+        results.push(`<div style="color: green;">✔ PASS: ${name}</div>`);
+      } else {
+        results.push(`<div style="color: red;">✖ FAIL: ${name}</div>`);
+      }
+    }
+
+    try {
+      const kb = new TypingKeyboard();
+      assert('TypingKeyboard instantiated', kb !== undefined);
+
+      // Finger mappings
+      assert('f maps to L_INDEX', kb.getKeyFinger('f') === 'L_INDEX');
+      assert('j maps to R_INDEX', kb.getKeyFinger('j') === 'R_INDEX');
+      assert('d maps to L_MIDDLE', kb.getKeyFinger('d') === 'L_MIDDLE');
+      assert('k maps to R_MIDDLE', kb.getKeyFinger('k') === 'R_MIDDLE');
+      assert('s maps to L_RING', kb.getKeyFinger('s') === 'L_RING');
+      assert('l maps to R_RING', kb.getKeyFinger('l') === 'R_RING');
+      assert('a maps to L_PINKY', kb.getKeyFinger('a') === 'L_PINKY');
+      assert('; maps to R_PINKY', kb.getKeyFinger(';') === 'R_PINKY');
+      assert('Space maps to THUMB', kb.getKeyFinger(' ') === 'THUMB');
+
+      // Shift rules
+      const shiftInfoRightChar = kb.getShiftRequirement('J'); // 'J' is on right hand -> needs Left Shift
+      assert('Capital J requires Left Shift', shiftInfoRightChar.needsShift && shiftInfoRightChar.shiftKey === 'L_SHIFT');
+
+      const shiftInfoLeftChar = kb.getShiftRequirement('F'); // 'F' is on left hand -> needs Right Shift
+      assert('Capital F requires Right Shift', shiftInfoLeftChar.needsShift && shiftInfoLeftChar.shiftKey === 'R_SHIFT');
+
+      // Mount DOM
+      kb.mount('keyboard-container');
+      const mountedContainer = document.getElementById('keyboard-container');
+      assert('Keyboard mounted rows in DOM', mountedContainer.children.length >= 4);
+
+      // F and J bumps exist
+      const fKey = mountedContainer.querySelector('[data-key="f"]');
+      const jKey = mountedContainer.querySelector('[data-key="j"]');
+      assert('F key element exists with bump class', fKey && fKey.classList.contains('bump'));
+      assert('J key element exists with bump class', jKey && jKey.classList.contains('bump'));
+
+      // Highlight target key
+      kb.highlightTargetKey('k');
+      const kKey = mountedContainer.querySelector('[data-key="k"]');
+      assert('K key received active-target class', kKey && kKey.classList.contains('active-target'));
+
+    } catch (err) {
+      results.push(`<div style="color: red;">✖ EXCEPTION: ${err.message}</div>`);
+    }
+
+    document.getElementById('test-results').innerHTML = results.join('');
+  </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Analytics & Charts Unit Tests</title>
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="theme-cyber-slate">
+  <canvas id="test-canvas" width="400" height="150"></canvas>
+  <div id="test-heatmap-container"></div>
+  <div id="test-mistakes-container"></div>
+  <div id="test-results" style="font-family: monospace; padding: 20px;"></div>
+
+  <script src="../js/charts.js"></script>
+  <script>
+    const results = [];
+    function assert(name, condition) {
+      if (condition) {
+        results.push(`<div style="color: green;">✔ PASS: ${name}</div>`);
+      } else {
+        results.push(`<div style="color: red;">✖ FAIL: ${name}</div>`);
+      }
+    }
+
+    try {
+      assert('AnalyticsRenderer exists', typeof AnalyticsRenderer !== 'undefined');
+
+      const canvas = document.getElementById('test-canvas');
+
+      // Test 1: Empty history render
+      AnalyticsRenderer.renderWpmTimeline(canvas, []);
+      assert('Empty timeline renders without throwing', true);
+
+      // Test 2: Populated history render
+      const history = [
+        { timestamp: 1000, wpm: 25 },
+        { timestamp: 2000, wpm: 35 },
+        { timestamp: 3000, wpm: 48 },
+        { timestamp: 4000, wpm: 60 }
+      ];
+      AnalyticsRenderer.renderWpmTimeline(canvas, history);
+      assert('Populated timeline renders without throwing', true);
+
+      // Test 3: Finger Heatmap
+      const heatmapContainer = document.getElementById('test-heatmap-container');
+      const fingerErrors = {
+        'L_PINKY': 10,
+        'L_RING': 2,
+        'L_MIDDLE': 0,
+        'L_INDEX': 4,
+        'L_THUMB': 0,
+        'R_THUMB': 0,
+        'R_INDEX': 3,
+        'R_MIDDLE': 1,
+        'R_RING': 5,
+        'R_PINKY': 12
+      };
+      AnalyticsRenderer.renderFingerHeatmap(heatmapContainer, fingerErrors);
+      assert('Heatmap renders 10 finger cards', heatmapContainer.children.length === 10);
+
+      // Test 4: Mistakes List
+      const mistakesContainer = document.getElementById('test-mistakes-container');
+      const mistakes = { 'p': 12, 'f': 8, ';': 6, 'r': 3, 'a': 1 };
+      AnalyticsRenderer.renderKeyMistakesList(mistakesContainer, mistakes);
+      assert('Mistakes badges rendered', mistakesContainer.children.length === 5);
+      assert('Top mistake is "p"', mistakesContainer.children[0].textContent.includes('p'));
+
+    } catch (err) {
+      results.push(`<div style="color: red;">✖ EXCEPTION: ${err.message}</div>`);
+    }
+
+    document.getElementById('test-results').innerHTML = results.join('');
+  </script>
+</body>
+</html>

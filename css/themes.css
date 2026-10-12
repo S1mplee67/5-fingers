@@ -1,0 +1,91 @@
+/* 5 F!NGERS Themes - Curated by S1mplee67 */
+
+:root {
+  /* Common Finger Assignment Colors (Touch Typing Standard) */
+  --finger-l-pinky: #ff6584;   /* Coral Pink */
+  --finger-l-ring: #ff9248;    /* Tangerine Peach */
+  --finger-l-middle: #ffd166;  /* Warm Amber */
+  --finger-l-index: #06d6a0;   /* Tactical Mint / Emerald */
+  --finger-thumbs: #29b6f6;    /* Thumbs / Spacebar */
+  --finger-r-index: #06d6a0;   /* Matching Index */
+  --finger-r-middle: #ffd166;  /* Matching Middle */
+  --finger-r-ring: #ff9248;    /* Matching Ring */
+  --finger-r-pinky: #b388ff;   /* Royal Purple / Violet */
+
+  /* Feedback Colors */
+  --color-correct: #06d6a0;
+  --color-incorrect: #ff4757;
+  --color-untyped: #57606a;
+}
+
+/* 1. Cyber Slate (Default) */
+body.theme-cyber-slate, :root {
+  --bg-primary: #0b0e14;
+  --bg-surface: #111622;
+  --bg-surface-elevated: #181f2f;
+  --bg-surface-glass: rgba(17, 22, 34, 0.85);
+  --border-subtle: #1f293d;
+  --border-highlight: #00e5ff33;
+  --text-primary: #e6edf3;
+  --text-secondary: #adb8c6;
+  --text-muted: #6e7a8a;
+  --accent-primary: #00e5ff;
+  --accent-secondary: #ffb703;
+  --accent-glow: rgba(0, 229, 255, 0.15);
+  --key-bg: #141b29;
+  --key-active-shadow: 0 0 12px rgba(0, 229, 255, 0.35);
+}
+
+/* 2. Midnight Obsidian (Eye Relief Dark Mode) */
+body.theme-obsidian-eye-relief {
+  --bg-primary: #07080a;
+  --bg-surface: #121316;
+  --bg-surface-elevated: #191b20;
+  --bg-surface-glass: rgba(18, 19, 22, 0.9);
+  --border-subtle: #23252b;
+  --border-highlight: #7e9cd833;
+  --text-primary: #dcd7ba; /* Warm muted sepia/parchment */
+  --text-secondary: #938aa9;
+  --text-muted: #5f6068;
+  --accent-primary: #7e9cd8;
+  --accent-secondary: #e6c384;
+  --accent-glow: rgba(126, 156, 216, 0.12);
+  --key-bg: #131418;
+  --key-active-shadow: 0 0 10px rgba(126, 156, 216, 0.25);
+}
+
+/* 3. Nordic Frost */
+body.theme-nordic-frost {
+  --bg-primary: #0f141c;
+  --bg-surface: #17202d;
+  --bg-surface-elevated: #202b3c;
+  --bg-surface-glass: rgba(23, 32, 45, 0.85);
+  --border-subtle: #2b394f;
+  --border-highlight: #88c0d033;
+  --text-primary: #eceff4;
+  --text-secondary: #d8dee9;
+  --text-muted: #6e7c91;
+  --accent-primary: #88c0d0;
+  --accent-secondary: #ebcb8b;
+  --accent-glow: rgba(136, 192, 208, 0.15);
+  --key-bg: #1c2738;
+  --key-active-shadow: 0 0 12px rgba(136, 192, 208, 0.3);
+}
+
+/* 4. Retro Phosphor CRT */
+body.theme-retro-phosphor {
+  --bg-primary: #080d09;
+  --bg-surface: #0f1811;
+  --bg-surface-elevated: #162419;
+  --bg-surface-glass: rgba(15, 24, 17, 0.9);
+  --border-subtle: #1f3323;
+  --border-highlight: #39ff1433;
+  --text-primary: #a8f5b8;
+  --text-secondary: #6ec283;
+  --text-muted: #3f684a;
+  --accent-primary: #39ff14;
+  --accent-secondary: #e0af68;
+  --accent-glow: rgba(57, 255, 20, 0.15);
+  --key-bg: #121f14;
+  --key-active-shadow: 0 0 12px rgba(57, 255, 20, 0.35);
+}

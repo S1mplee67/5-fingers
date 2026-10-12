@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Complete Verification Suite</title>
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { padding: 30px; font-family: monospace; line-height: 1.6; }
+    .suite-header { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+    .summary-card { padding: 14px 20px; border-radius: 8px; margin-bottom: 20px; font-size: 16px; font-weight: bold; }
+    .pass-summary { background: rgba(6, 214, 160, 0.15); color: #06d6a0; border: 1px solid #06d6a0; }
+    .fail-summary { background: rgba(255, 71, 87, 0.15); color: #ff4757; border: 1px solid #ff4757; }
+  </style>
+</head>
+<body class="theme-cyber-slate">
+
+  <div class="suite-header">5 F!NGERS by S1mplee67 — Full Automated Verification Suite</div>
+  <div id="test-summary"></div>
+  <div id="test-log"></div>
+
+  <!-- Hidden Sandbox Containers -->
+  <div style="display: none;">
+    <div id="words-stream" class="words-wrapper"></div>
+    <div id="typing-caret" class="caret"></div>
+    <div id="keyboard-container"></div>
+    <div id="left-hand-svg"></div>
+    <div id="right-hand-svg"></div>
+    <canvas id="test-canvas" width="400" height="150"></canvas>
+    <div id="heatmap-container"></div>
+    <div id="mistakes-container"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/storage.js"></script>
+  <script src="../js/audio.js"></script>
+  <script src="../js/keyboard.js"></script>
+  <script src="../js/hands.js"></script>
+  <script src="../js/curriculum.js"></script>
+  <script src="../js/code-arena.js"></script>
+  <script src="../js/charts.js"></script>
+  <script src="../js/engine.js"></script>
+
+  <script>
+    let passCount = 0;
+    let failCount = 0;
+    const logEl = document.getElementById('test-log');
+
+    function assert(name, condition) {
+      if (condition) {
+        passCount++;
+        const el = document.createElement('div');
+        el.style.color = '#06d6a0';
+        el.textContent = `✔ PASS: ${name}`;
+        logEl.appendChild(el);
+      } else {
+        failCount++;
+        const el = document.createElement('div');
+        el.style.color = '#ff4757';
+        el.textContent = `✖ FAIL: ${name}`;
+        logEl.appendChild(el);
+      }
+    }
+
+    try {
+      // 1. Storage Verification
+      localStorage.clear();
+      const storage = new TypingStorage('suite_test_storage');
+      const profile = storage.loadProfile();
+      assert('Storage initializes profile for S1mplee67', profile.user === 'S1mplee67');
+      assert('Initial unlocked lessons contains 1.1', profile.progress.unlockedLessons.includes('1.1'));
+
+      // 2. Audio Verification
+      const sound = new SoundEngine('mute');
+      sound.setSwitch('cherry-blue');
+      assert('Sound switches type properly', sound.switchType === 'cherry-blue');
+      sound.setVolume(0.7);
+      assert('Sound volume bounds correctly', sound.volume === 0.7);
+      sound.playClick();
+      assert('Sound click executes without error', true);
+
+      // 3. Virtual Keyboard Verification
+      const kb = new TypingKeyboard();
+      assert('Keyboard maps f to L_INDEX', kb.getKeyFinger('f') === 'L_INDEX');
+      assert('Keyboard maps j to R_INDEX', kb.getKeyFinger('j') === 'R_INDEX');
+      assert('Keyboard maps capital J to Left Shift requirement', kb.getShiftRequirement('J').shiftKey === 'L_SHIFT');
+      assert('Keyboard maps capital F to Right Shift requirement', kb.getShiftRequirement('F').shiftKey === 'R_SHIFT');
+      kb.mount('keyboard-container');
+      assert('Keyboard mounts at least 4 rows', document.getElementById('keyboard-container').children.length >= 4);
+
+      // 4. Hands Guide Verification
+      const hands = new HandsGuide();
+      hands.mount('left-hand-svg', 'right-hand-svg');
+      assert('Hands guide renders Left SVG', document.getElementById('left-hand-svg').querySelector('svg') !== null);
+      assert('Hands guide renders Right SVG', document.getElementById('right-hand-svg').querySelector('svg') !== null);
+      hands.setActiveFinger('L_INDEX');
+      assert('L_INDEX finger gets active class', document.getElementById('finger-L_INDEX').classList.contains('active'));
+      hands.clearActive();
+      assert('L_INDEX active class cleared', !document.getElementById('finger-L_INDEX').classList.contains('active'));
+
+      // 5. Curriculum Verification
+      assert('Curriculum contains 6 stages', Curriculum.stages.length >= 6);
+      assert('Lesson 1.1 targets f and j', Curriculum.getLesson('1.1').targetKeys.includes('f'));
+      assert('Passing threshold requires >= 90% accuracy', Curriculum.calculateStars(40, 89) === 0 && Curriculum.calculateStars(40, 91) >= 1);
+      assert('Lesson 1.2 is locked until 1.1 is passed', !Curriculum.isLessonUnlocked('1.2', {}));
+      assert('Lesson 1.2 is unlocked once 1.1 has >= 1 star', Curriculum.isLessonUnlocked('1.2', { '1.1': { stars: 1 } }));
+
+      // 6. Code Arena Verification
+      assert('CodeArena contains 10 languages', CodeArena.languages.length === 10);
+      assert('JavaScript snippets exist', CodeArena.getSnippets('javascript').length >= 3);
+      assert('Python snippets exist', CodeArena.getSnippets('python').length >= 3);
+      assert('C# snippets exist', CodeArena.getSnippets('csharp').length >= 3);
+
+      // 7. Analytics Verification
+      const canvas = document.getElementById('test-canvas');
+      AnalyticsRenderer.renderWpmTimeline(canvas, [{ wpm: 40 }, { wpm: 55 }]);
+      assert('Canvas timeline renders without throwing', true);
+      const heatmapContainer = document.getElementById('heatmap-container');
+      AnalyticsRenderer.renderFingerHeatmap(heatmapContainer, { 'L_INDEX': 2 });
+      assert('Finger heatmap renders 10 cards', heatmapContainer.children.length === 10);
+
+      // 8. End-to-End Typing Flow Integration Test
+      const engine = new TypingEngine({
+        wordsContainerId: 'words-stream',
+        caretId: 'typing-caret',
+        storage: storage,
+        sound: sound,
+        keyboard: kb,
+        hands: hands
+      });
+
+      engine.loadText("fj");
+      assert('Engine loaded 2 characters', engine.charSpans.length === 2);
+      
+      let finishResult = null;
+      engine.onComplete = (res) => { finishResult = res; };
+
+      engine.handleKey('f');
+      assert('First key f marked correct', engine.charSpans[0].classList.contains('correct'));
+      
+      engine.handleKey('j');
+      assert('Second key j marked correct', engine.charSpans[1].classList.contains('correct'));
+      assert('Full lesson completed with 100% accuracy', finishResult !== null && finishResult.accuracy === 100);
+
+      // Verify progress persistence
+      storage.saveProgress('1.1', { wpm: finishResult.wpm, accuracy: finishResult.accuracy, stars: 5, mistakes: 0 });
+      assert('Completed lesson saved in storage', storage.loadProfile().progress.completedLessons['1.1'].stars === 5);
+
+    } catch (e) {
+      failCount++;
+      const el = document.createElement('div');
+      el.style.color = '#ff4757';
+      el.textContent = `✖ UNHANDLED EXCEPTION: ${e.message}`;
+      logEl.appendChild(el);
+    }
+
+    // Render Summary
+    const summaryEl = document.getElementById('test-summary');
+    if (failCount === 0) {
+      summaryEl.className = 'summary-card pass-summary';
+      summaryEl.textContent = `ALL ${passCount} VERIFICATION TESTS PASSED! (0 failures)`;
+    } else {
+      summaryEl.className = 'summary-card fail-summary';
+      summaryEl.textContent = `VERIFICATION FAILED: ${passCount} passed, ${failCount} failed.`;
+    }
+  </script>
+</body>
+</html>

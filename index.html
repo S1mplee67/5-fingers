@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 F!NGERS by S1mplee67 — Offline Touch Typing & Code Trainer</title>
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-cyber-slate">
+
+  <!-- Application Header -->
+  <header id="app-header">
+    <div class="brand-section">
+      <span class="brand-badge">5F</span>
+      <div>
+        <div class="brand-title">5 F!NGERS</div>
+        <div class="brand-author">by S1mplee67 (W3NCY?)</div>
+      </div>
+    </div>
+
+    <!-- Mode Navigation Tabs -->
+    <nav class="nav-modes" id="nav-stages">
+      <button class="nav-btn active" data-mode="finger-school">
+        <span>🖐</span> Finger School
+      </button>
+      <button class="nav-btn" data-mode="code-arena">
+        <span>💻</span> Code Arena
+      </button>
+      <button class="nav-btn" data-mode="speed-test">
+        <span>⚡</span> Speed Test
+      </button>
+      <button class="nav-btn" data-mode="analytics">
+        <span>📊</span> Heatmap & Stats
+      </button>
+    </nav>
+
+    <!-- Controls: Sound, Theme, Settings, Reset -->
+    <div class="header-controls">
+      <button class="btn-icon" id="btn-tutorial-modal" title="Welcome & Touch-Typing Tutorial">
+        ❓
+      </button>
+      <button class="btn-icon" id="btn-sound-toggle" title="Mechanical Switch Sound">
+        🔊
+      </button>
+      <button class="btn-icon" id="btn-theme-toggle" title="Switch Theme (Cyber Slate / Eye Relief / Nordic / Retro)">
+        🎨
+      </button>
+      <button class="btn-icon" id="btn-stages-modal" title="Stage Map & Lessons">
+        🗺️
+      </button>
+      <button class="btn-icon" id="btn-settings-modal" title="Settings & Backup">
+        ⚙️
+      </button>
+    </div>
+  </header>
+
+  <!-- Main View Area -->
+  <main id="app-main">
+
+    <!-- Active Lesson / Mode Banner -->
+    <div class="lesson-banner" id="lesson-banner">
+      <div class="lesson-info">
+        <span class="lesson-tag" id="current-stage-tag">Stage 1.1</span>
+        <span class="lesson-title" id="current-lesson-title">The Index Anchors — F and J</span>
+      </div>
+      <div class="lesson-stars" id="current-lesson-stars">⭐⭐⭐⭐⭐</div>
+    </div>
+
+    <!-- In-Line Contextual Tips Banner -->
+    <div class="tips-banner" id="tips-banner">
+      <span class="tip-icon">💡</span>
+      <span class="tip-text" id="tip-text">Feel the physical bumps on F and J with your index fingers. Rest other fingers on A, S, D, K, L, ;. Eyes on screen!</span>
+    </div>
+
+
+    <!-- Live Metrics Bar -->
+    <section id="metrics-bar">
+      <div class="metric-card">
+        <div class="metric-label">WPM</div>
+        <div class="metric-value highlight" id="val-wpm">0</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">ACCURACY</div>
+        <div class="metric-value" id="val-accuracy">100%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">RAW WPM</div>
+        <div class="metric-value" id="val-raw">0</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CONSISTENCY</div>
+        <div class="metric-value" id="val-consistency">100%</div>
+      </div>
+    </section>
+
+    <!-- Typing Interactive Stream Box -->
+    <section id="typing-area" tabindex="0">
+      <input type="text" id="keystroke-catcher" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <div class="words-wrapper" id="words-stream">
+        <!-- Rendered dynamically by TypingEngine -->
+      </div>
+      <div class="caret" id="typing-caret"></div>
+      
+      <div class="typing-prompt">
+        <span>Click to focus or start typing</span>
+        <span><span class="kbd-hint">Tab</span> + <span class="kbd-hint">Enter</span> to restart</span>
+      </div>
+    </section>
+
+    <!-- Dual Animated SVG Hands Guide -->
+    <section id="hands-container">
+      <div class="hand-card" id="left-hand-card">
+        <div class="hand-svg" id="left-hand-svg"></div>
+        <div class="hand-label">LEFT HAND</div>
+      </div>
+      <div class="hand-card" id="right-hand-card">
+        <div class="hand-svg" id="right-hand-svg"></div>
+        <div class="hand-label">RIGHT HAND</div>
+      </div>
+    </section>
+
+    <!-- Virtual On-Screen Keyboard with Color Zones -->
+    <section id="keyboard-container">
+      <!-- Built dynamically by VirtualKeyboard -->
+    </section>
+
+  </main>
+
+  <!-- Welcome & Tutorial Modal -->
+  <div class="modal-overlay" id="welcome-modal">
+    <div class="modal-content" style="max-width: 720px;">
+      <div class="welcome-header">
+        <div class="welcome-logo-badge">5F</div>
+        <div>
+          <h2 style="font-size: 24px; font-weight: 800; letter-spacing: 0.5px;">Welcome to 5 F!NGERS</h2>
+          <div style="font-size: 13px; color: var(--text-muted); margin-top: 3px;">
+            Created by <strong>S1mplee67 (W3NCY?)</strong> • 100% Offline Touch Typing Coach
+          </div>
+        </div>
+      </div>
+
+      <div class="tutorial-grid">
+        <div class="tutorial-card">
+          <div class="tut-icon">🖐</div>
+          <div class="tut-title">The 10-Finger Rule</div>
+          <div class="tut-desc">No more 2-finger pecking! Every single key has 1 assigned finger. Touch typing eliminates fatigue and builds genuine speed.</div>
+        </div>
+        <div class="tutorial-card highlight">
+          <div class="tut-icon">🏠</div>
+          <div class="tut-title">Feel the Anchors (F & J)</div>
+          <div class="tut-desc">Without looking down, find the physical bumps on F and J with your index fingers. Your hands always return to this Home Row base.</div>
+        </div>
+        <div class="tutorial-card">
+          <div class="tut-icon">🐢</div>
+          <div class="tut-title">Slow is Smooth & Fast</div>
+          <div class="tut-desc">Never rush. 5 F!NGERS requires at least <strong>90% accuracy</strong> to unlock stages. Accuracy creates rhythm; speed follows automatically.</div>
+        </div>
+      </div>
+
+      <div class="tutorial-checklist">
+        <div class="tut-tip-item"><span>👁️</span> <strong>Eyes on the screen:</strong> Watch the on-screen hands and keyboard, not your physical fingers.</div>
+        <div class="tut-tip-item"><span>⇧</span> <strong>Dual-Shift Discipline:</strong> Left Pinky holds Shift for right-hand keys; Right Pinky holds Shift for left-hand keys.</div>
+        <div class="tut-tip-item"><span>💻</span> <strong>Multi-Language Code Arena:</strong> Once you master letters, practice real Python, C#, JS, C++, Go, and SQL code syntax!</div>
+        <div class="tut-tip-item"><span>⚡</span> <strong>Quick Restart:</strong> Press <span class="kbd-hint">Ctrl</span> + <span class="kbd-hint">Enter</span> to retry any lesson anytime.</div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-subtle);">
+        <label style="font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" id="check-dont-show-welcome" style="accent-color: var(--accent-primary);">
+          Don't show this intro on startup
+        </label>
+        <button class="nav-btn active" id="btn-start-stage1" style="padding: 10px 24px; font-size: 15px; font-weight: 700;">
+          Start Stage 1 (F & J) ➔
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage Map Modal -->
+  <div class="modal-overlay" id="stages-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">🗺️ Finger School Curriculum</h2>
+        <button class="btn-close" id="btn-close-stages">&times;</button>
+      </div>
+      <div id="stages-list-container">
+        <!-- Generated by curriculum.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Lesson Complete Results Modal -->
+  <div class="modal-overlay" id="results-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="results-title">Lesson Completed!</h2>
+        <button class="btn-close" id="btn-close-results">&times;</button>
+      </div>
+      <div class="results-summary">
+        <div class="results-stars" id="results-stars-display">⭐⭐⭐⭐⭐</div>
+        <div id="results-status-badge" style="font-size: 14px; font-weight: 700; margin-bottom: 14px;">PASSED</div>
+        <div class="results-grid">
+          <div class="metric-card">
+            <div class="metric-label">SPEED</div>
+            <div class="metric-value highlight" id="res-wpm">48 WPM</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">ACCURACY</div>
+            <div class="metric-value" id="res-acc">98.5%</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">MISTAKES</div>
+            <div class="metric-value" id="res-errors">2</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 20px;">
+          <button class="nav-btn active" id="btn-next-lesson" style="padding: 10px 24px; font-size: 15px;">Next Lesson ➔</button>
+          <button class="nav-btn" id="btn-retry-lesson" style="padding: 10px 24px; font-size: 15px;">Retry ↺</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings & Backup Modal -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">⚙️ Settings & Data Backup</h2>
+        <button class="btn-close" id="btn-close-settings">&times;</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Visual Theme</label>
+          <select id="select-theme" class="nav-btn" style="width: 100%; padding: 8px;">
+            <option value="theme-cyber-slate">Cyber Slate (Default)</option>
+            <option value="theme-obsidian-eye-relief">Midnight Obsidian (Eye Relief OLED)</option>
+            <option value="theme-nordic-frost">Nordic Frost</option>
+            <option value="theme-retro-phosphor">Retro Phosphor CRT</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Mechanical Switch Sound</label>
+          <select id="select-sound" class="nav-btn" style="width: 100%; padding: 8px;">
+            <option value="cherry-blue">Cherry MX Blue (Crisp Clicky)</option>
+            <option value="cherry-red">Cherry MX Red (Linear Clack)</option>
+            <option value="cherry-brown">Cherry MX Brown (Tactile Bump)</option>
+            <option value="typewriter">Vintage Typewriter & Bell</option>
+            <option value="mute">Mute (Silent)</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Sound Volume</label>
+          <input type="range" id="sound-volume" min="0" max="1" step="0.05" value="0.5" style="width: 100%;">
+        </div>
+
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px;">
+          <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Offline Backup (Zero Sign-in)</label>
+          <div style="display: flex; gap: 10px;">
+            <button class="nav-btn active" id="btn-export-backup" style="flex: 1;">📥 Export Backup (.json)</button>
+            <button class="nav-btn" id="btn-import-backup-trigger" style="flex: 1;">📤 Import Backup</button>
+            <input type="file" id="input-import-file" accept=".json" style="display: none;">
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px;">
+          <button class="nav-btn" id="btn-reset-data" style="color: var(--color-incorrect); width: 100%;">⚠️ Reset All Progress</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analytics / Heatmap Modal -->
+  <div class="modal-overlay" id="analytics-modal">
+    <div class="modal-content" style="max-width: 820px;">
+      <div class="modal-header">
+        <h2 class="modal-title">📊 Typing Analytics & Finger Heatmap</h2>
+        <button class="btn-close" id="btn-close-analytics">&times;</button>
+      </div>
+      <div>
+        <h4 style="margin-bottom: 8px; font-size: 14px;">Speed Progress Over Time</h4>
+        <canvas id="wpm-timeline-canvas" width="760" height="200" style="width: 100%; height: 200px; background: var(--bg-surface-elevated); border-radius: 8px; margin-bottom: 20px;"></canvas>
+
+        <h4 style="margin-bottom: 8px; font-size: 14px;">10-Finger Error Heatmap</h4>
+        <div id="heatmap-fingers-view" style="display: flex; justify-content: space-around; background: var(--bg-surface-elevated); padding: 16px; border-radius: 8px; margin-bottom: 16px;"></div>
+
+        <h4 style="margin-bottom: 8px; font-size: 14px;">Top Mistyped Keys</h4>
+        <div id="mistakes-badges-list" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Footer -->
+  <footer id="app-footer">
+    <div>
+      Created with ❤️ by <a href="https://github.com/S1mplee67" target="_blank">S1mplee67 (W3NCY?)</a> — ICCT Colleges
+    </div>
+    <div>
+      100% Offline • Zero Dependencies • Open Source
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/hands.js"></script>
+  <script src="js/curriculum.js"></script>
+  <script src="js/code-arena.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

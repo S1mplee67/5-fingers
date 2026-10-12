@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Code Arena Unit Tests</title>
+</head>
+<body>
+  <div id="test-results" style="font-family: monospace; padding: 20px;"></div>
+  <script src="../js/code-arena.js"></script>
+  <script>
+    const results = [];
+    function assert(name, condition) {
+      if (condition) {
+        results.push(`<div style="color: green;">✔ PASS: ${name}</div>`);
+      } else {
+        results.push(`<div style="color: red;">✖ FAIL: ${name}</div>`);
+      }
+    }
+
+    try {
+      assert('CodeArena object exists', typeof CodeArena !== 'undefined');
+
+      const expectedLangs = [
+        'javascript', 'python', 'csharp', 'cpp', 'java',
+        'rust', 'go', 'sql', 'html_css', 'bash'
+      ];
+
+      expectedLangs.forEach(lang => {
+        assert(`CodeArena supports ${lang}`, CodeArena.languages.includes(lang));
+        const snippets = CodeArena.getSnippets(lang);
+        assert(`${lang} has at least 3 curated snippets`, snippets && snippets.length >= 3);
+        const randomSnippet = CodeArena.getRandomSnippet(lang);
+        assert(`${lang} random snippet has code content`, randomSnippet && randomSnippet.code.length > 20);
+      });
+
+      // Check Python snippet has no rogue tabs and has valid indentation
+      const pySnippet = CodeArena.getRandomSnippet('python');
+      assert('Python code contains valid python syntax', pySnippet.code.includes('def ') || pySnippet.code.includes('return ') || pySnippet.code.includes('for '));
+
+      // Check C# snippet has namespaces/classes/methods
+      const csSnippet = CodeArena.getRandomSnippet('csharp');
+      assert('C# code contains valid C# keywords', csSnippet.code.includes('class ') || csSnippet.code.includes('public ') || csSnippet.code.includes('var '));
+
+    } catch (err) {
+      results.push(`<div style="color: red;">✖ EXCEPTION: ${err.message}</div>`);
+    }
+
+    document.getElementById('test-results').innerHTML = results.join('');
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Hands Guide Unit Tests</title>
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="theme-cyber-slate">
+  <div id="left-hand-svg" style="width: 200px; height: 120px;"></div>
+  <div id="right-hand-svg" style="width: 200px; height: 120px;"></div>
+  <div id="test-results" style="font-family: monospace; padding: 20px;"></div>
+
+  <script src="../js/hands.js"></script>
+  <script>
+    const results = [];
+    function assert(name, condition) {
+      if (condition) {
+        results.push(`<div style="color: green;">✔ PASS: ${name}</div>`);
+      } else {
+        results.push(`<div style="color: red;">✖ FAIL: ${name}</div>`);
+      }
+    }
+
+    try {
+      const hands = new HandsGuide();
+      assert('HandsGuide instantiated', hands !== undefined);
+
+      hands.mount('left-hand-svg', 'right-hand-svg');
+
+      const leftContainer = document.getElementById('left-hand-svg');
+      const rightContainer = document.getElementById('right-hand-svg');
+
+      assert('Left container has SVG element', leftContainer.querySelector('svg') !== null);
+      assert('Right container has SVG element', rightContainer.querySelector('svg') !== null);
+
+      // Verify all 10 fingers exist
+      const fingers = [
+        'L_PINKY', 'L_RING', 'L_MIDDLE', 'L_INDEX', 'L_THUMB',
+        'R_THUMB', 'R_INDEX', 'R_MIDDLE', 'R_RING', 'R_PINKY'
+      ];
+
+      fingers.forEach(fid => {
+        const el = document.getElementById(`finger-${fid}`);
+        assert(`Finger element for ${fid} exists`, el !== null);
+      });
+
+      // Test active finger animation
+      hands.setActiveFinger('L_INDEX');
+      const activeEl = document.getElementById('finger-L_INDEX');
+      assert('L_INDEX has active class', activeEl.classList.contains('active'));
+
+      // Test clear
+      hands.clearActive();
+      assert('L_INDEX active class removed after clear', !activeEl.classList.contains('active'));
+
+      // Test error flash
+      hands.flashError('R_MIDDLE');
+      const errEl = document.getElementById('finger-R_MIDDLE');
+      assert('R_MIDDLE has error class on flashError', errEl.classList.contains('error-flash'));
+
+    } catch (err) {
+      results.push(`<div style="color: red;">✖ EXCEPTION: ${err.message}</div>`);
+    }
+
+    document.getElementById('test-results').innerHTML = results.join('');
+  </script>
+</body>
+</html>

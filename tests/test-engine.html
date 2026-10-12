@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 F!NGERS - Typing Engine Unit Tests</title>
+  <link rel="stylesheet" href="../css/themes.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="theme-cyber-slate">
+  <div id="words-stream" class="words-wrapper"></div>
+  <div id="typing-caret" class="caret"></div>
+  <div id="test-results" style="font-family: monospace; padding: 20px;"></div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/audio.js"></script>
+  <script src="../js/keyboard.js"></script>
+  <script src="../js/hands.js"></script>
+  <script src="../js/engine.js"></script>
+  <script>
+    const results = [];
+    function assert(name, condition) {
+      if (condition) {
+        results.push(`<div style="color: green;">✔ PASS: ${name}</div>`);
+      } else {
+        results.push(`<div style="color: red;">✖ FAIL: ${name}</div>`);
+      }
+    }
+
+    try {
+      const storage = new TypingStorage('test_engine_storage');
+      const sound = new SoundEngine('mute');
+      const kb = new TypingKeyboard();
+      const hands = new HandsGuide();
+
+      const engine = new TypingEngine({
+        wordsContainerId: 'words-stream',
+        caretId: 'typing-caret',
+        storage: storage,
+        sound: sound,
+        keyboard: kb,
+        hands: hands
+      });
+
+      assert('TypingEngine instantiated', engine !== undefined);
+
+      // Load sample text
+      engine.loadText("abc");
+      const container = document.getElementById('words-stream');
+      assert('Loaded text creates 3 character spans', container.querySelectorAll('.char').length === 3);
+
+      const firstChar = container.querySelectorAll('.char')[0];
+      assert('First character has current class', firstChar.classList.contains('current'));
+
+      // Test correct keypress 'a'
+      engine.handleKey('a');
+      assert('First character is marked correct', firstChar.classList.contains('correct'));
+      assert('Index advances to 1', engine.currentIndex === 1);
+
+      // Test incorrect keypress 'z' (expected 'b')
+      engine.handleKey('z');
+      const secondChar = container.querySelectorAll('.char')[1];
+      assert('Second character is marked incorrect', secondChar.classList.contains('incorrect'));
+      assert('Error count is 1', engine.errorCount === 1);
+
+      // Test backspace
+      engine.handleKey('Backspace');
+      assert('After backspace index is 1', engine.currentIndex === 1);
+      assert('Second character incorrect class removed', !secondChar.classList.contains('incorrect'));
+
+      // Now type correct 'b' and 'c'
+      let completedResult = null;
+      engine.onComplete = (res) => {
+        completedResult = res;
+      };
+
+      engine.handleKey('b');
+      engine.handleKey('c');
+
+      assert('Typing finishes and triggers onComplete', completedResult !== null);
+      assert('Result contains wpm number', typeof completedResult.wpm === 'number');
+      assert('Result contains accuracy number', typeof completedResult.accuracy === 'number');
+
+    } catch (err) {
+      results.push(`<div style="color: red;">✖ EXCEPTION: ${err.message}</div>`);
+    }
+
+    document.getElementById('test-results').innerHTML = results.join('');
+  </script>
+</body>
+</html>
